@@ -9,46 +9,6 @@ defaults:
     shell: sh -xeuo pipefail {0}
 
 jobs:
-  style:
-    name: Style
-    runs-on: k8s
-    container:
-      # If we want anything form docker hub, use
-      #   cache-registry.caas.intel.com/cache/
-      # instead of docker.io/ to avoid rate limit.
-      # - library/ is for offical images
-      # - <namespace>/ is for everything else
-      image: cache-registry.caas.intel.com/cache/library/python:3.9-alpine
-    steps:
-    - uses: actions/checkout@v2
-    - name: Install dependencies
-      run: |
-        pip install black==22.3.0
-    - name: Run check
-      run: |
-        black --check .
-  commit_per_pr:
-    name: 1 Commit per PR
-    runs-on: k8s
-    container:
-      image: cache-registry.caas.intel.com/cache/library/debian:latest
-    env:
-      BRANCH: ${{ github.base_ref }}
-    steps:
-    - name: Install depedencies
-      run: |
-        apt-get update
-        apt-get install -y git
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-    - name: Run check
-      run: |
-        number_of_patches=$(git format-patch "${BRANCH}..HEAD" | wc -l)
-        if [[ "x${number_of_patches}" != "x1" ]]; then
-          echo "Please only create PRs containing a single commit" >&2
-          exit 1
-        fi
   no_binaries:
     name: No Binaries Added
     runs-on: k8s
