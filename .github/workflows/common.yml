@@ -2,7 +2,7 @@
 # https://github.com/intel/project-example-for-python/blob/master/.github/workflows/testing.yml
 name: Common CI Checks
 
-on: [pull_request]
+on: push 
 
 defaults:
   run:
