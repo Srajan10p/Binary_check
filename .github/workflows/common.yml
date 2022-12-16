@@ -4,9 +4,9 @@ name: Common CI Checks
 
 on: push
 
-defaults:
-  run:
-    shell: sh -xeuo pipefail {0}
+# defaults:
+#   run:
+#     shell: sh -xeuo pipefail {0}
 
 jobs:
   no_binaries:
