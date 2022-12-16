@@ -2,7 +2,7 @@
 # https://github.com/intel/project-example-for-python/blob/master/.github/workflows/testing.yml
 name: Common CI Checks
 
-on: [pull_request]
+on: push
 
 defaults:
   run:
@@ -11,7 +11,7 @@ defaults:
 jobs:
   no_binaries:
     name: No Binaries Added
-    runs-on: k8s
+    runs-on: ubuntu latest
     container:
       image: cache-registry.caas.intel.com/cache/library/debian:latest
     env:
@@ -37,7 +37,7 @@ jobs:
         fi
   no_files_over_100k:
     name: No Files Over 100k
-    runs-on: k8s
+    runs-on: ubuntu latest
     container:
       image: cache-registry.caas.intel.com/cache/library/debian:latest
     steps:
