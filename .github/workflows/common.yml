@@ -13,7 +13,7 @@ jobs:
     name: No Binaries Added
     runs-on: ubuntu-20.04
     container:
-      image: cache-registry.caas.intel.com/cache/library/debian:latest
+      image: https://cache-registry.caas.intel.com/harbor/projects/117/repositories/library%2Fdebian
     env:
       BRANCH: ${{ github.base_ref }}
     steps:
