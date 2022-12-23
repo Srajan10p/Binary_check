@@ -14,8 +14,11 @@ jobs:
     runs-on: ubuntu-20.04
     container:
       image: https://cache-registry.caas.intel.com/harbor/projects/117/repositories/library%2Fdebian
-    env:
-      BRANCH: ${{ github.base_ref }}
+      credentials:
+       username: ${{ srajango }}
+       password: ${{ Megha@1995_ }}
+#     env:
+#       BRANCH: ${{ github.base_ref }}
     steps:
     - name: Install depedencies
       run: |
