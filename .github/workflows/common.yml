@@ -18,9 +18,9 @@ jobs:
       BRANCH: ${{ github.base_ref }}
     steps:
     - name: Install depedencies
-#       run: |
-#         apt-get update
-#         apt-get install -y git
+      run: |
+      #  apt-get update
+      # apt-get install -y git
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
