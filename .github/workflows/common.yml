@@ -53,7 +53,7 @@ jobs:
         fetch-depth: 0
     - name: Run check
       env:
-        SIZE_LIMIT_BYTES: 102400
+        SIZE_LIMIT_BYTES: 35840
         BRANCH: ${{ github.base_ref }}
       run: |
         SAVEIFS=$IFS
