@@ -66,6 +66,7 @@ jobs:
             echo "File \"${file}\" was ${size} bytes but must be less than or equal to ${SIZE_LIMIT_BYTES} bytes" >&2
             failure=1
           fi
+          echo "File size is ${size}"
         done
         IFS=$SAVEIFS
         if [[ "x${failure}" != "x0" ]]; then
