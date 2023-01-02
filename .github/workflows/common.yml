@@ -46,8 +46,8 @@ jobs:
     steps:
     - name: Install depedencies
       run: |
-        apt-get update
-        apt-get install -y git
+        #apt-get update
+        #apt-get install -y git
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
