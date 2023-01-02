@@ -12,11 +12,11 @@ jobs:
   no_binaries:
     name: No Binaries Added
     runs-on: ubuntu-20.04
-    container:
-      image: https://cache-registry.caas.intel.com/harbor/projects/117/repositories/library%2Fdebian
-      credentials:
-       username: ${{ github.actor }}
-       password: ${{ secrets.github_token }}
+#     container:
+#       image: https://cache-registry.caas.intel.com/harbor/projects/117/repositories/library%2Fdebian
+#       credentials:
+#        username: ${{ github.actor }}
+#        password: ${{ secrets.github_token }}
     env:
       BRANCH: ${{ github.base_ref }}
     steps:
