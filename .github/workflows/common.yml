@@ -40,9 +40,9 @@ jobs:
         fi
   no_files_over_100k:
     name: No Files Over 100k
-    runs-on: ubuntu latest
-    container:
-      image: cache-registry.caas.intel.com/cache/library/debian:latest
+    runs-on: ubuntu-20.04
+#     container:
+#       image: cache-registry.caas.intel.com/cache/library/debian:latest
     steps:
     - name: Install depedencies
       run: |
