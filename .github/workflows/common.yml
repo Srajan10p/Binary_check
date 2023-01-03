@@ -29,8 +29,9 @@ jobs:
         fetch-depth: 0
     - name: Run check
       env:
-        BRANCH: ${{ github.ref_name }}
+        #BRANCH: ${{ github.ref_name }}
       run: |
+        BRANCH="$(git symbolic-ref --short HEAD)"
         echo $BRANCH
         set -ex
         patches=$(git format-patch "${BRANCH}")
@@ -55,7 +56,7 @@ jobs:
     - name: Run check
       env:
         SIZE_LIMIT_BYTES: 35840
-        BRANCH: github.ref_name
+        BRANCH: github.base_ref
       run: |
         #BRANCH = $(git symbolic-ref --short HEAD)
         echo $BRANCH
