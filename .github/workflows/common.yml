@@ -54,7 +54,7 @@ jobs:
     - name: Run check
       env:
         SIZE_LIMIT_BYTES: 35840
-        BRANCH: ${{ github.ref }}
+        BRANCH: $(git symbolic-ref --short HEAD)
       run: |
         echo $BRANCH
         SAVEIFS=$IFS
