@@ -28,8 +28,8 @@ jobs:
       with:
         fetch-depth: 0
     - name: Run check
-      env:
-        #BRANCH: ${{ github.ref_name }}
+#       env:
+#         BRANCH: ${{ github.ref_name }}
       run: |
         BRANCH="$(git symbolic-ref --short HEAD)"
         echo $BRANCH
