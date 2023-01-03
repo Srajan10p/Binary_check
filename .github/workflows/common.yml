@@ -54,8 +54,9 @@ jobs:
     - name: Run check
       env:
         SIZE_LIMIT_BYTES: 35840
-        BRANCH: $(git symbolic-ref --short HEAD)
+        #BRANCH: $(git symbolic-ref --short HEAD)
       run: |
+        BRANCH = $(git symbolic-ref --short HEAD)
         echo $BRANCH
         SAVEIFS=$IFS
         IFS=$(echo -en "\n\b")
