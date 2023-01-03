@@ -4,32 +4,35 @@ name: Common CI Checks
 
 on: [pull_request]
 
-defaults:
-  run:
-    shell: sh -xeuo pipefail {0}
+# defaults:
+#   run:
+#     shell: sh -xeuo pipefail {0}
 
 jobs:
   no_binaries:
     name: No Binaries Added
-    runs-on: k8s
-    container:
-      image: cache-registry.caas.intel.com/cache/library/debian:latest
+    runs-on: ubuntu-20.04
+#     container:
+#       image: https://cache-registry.caas.intel.com/harbor/projects/117/repositories/library%2Fdebian
+#       credentials:
+#        username: ${{ github.actor }}
+#        password: ${{ secrets.github_token }}
     env:
       BRANCH: ${{ github.base_ref }}
     steps:
     - name: Install depedencies
       run: |
-        apt-get update
-        apt-get install -y git
+      #  apt-get update
+      # apt-get install -y git
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
     - name: Run check
       env:
-        BRANCH: ${{ github.base_ref }}
+        BRANCH: ${{ github.ref }}
       run: |
         set -ex
-        patches=$(git format-patch "${BRANCH}..HEAD")
+        patches=$(git format-patch "${BRANCH}")
         binaries_found=$(cat "${patches}" | grep 'GIT binary patch' | wc -l)
         if [[ "x${binaries_found}" != "x0" ]]; then
           echo "Please remove any binaries you added" >&2
@@ -37,32 +40,33 @@ jobs:
         fi
   no_files_over_100k:
     name: No Files Over 100k
-    runs-on: k8s
-    container:
-      image: cache-registry.caas.intel.com/cache/library/debian:latest
+    runs-on: ubuntu-20.04
+#     container:
+#       image: cache-registry.caas.intel.com/cache/library/debian:latest
     steps:
     - name: Install depedencies
       run: |
-        apt-get update
-        apt-get install -y git
+        #apt-get update
+        #apt-get install -y git
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
     - name: Run check
       env:
-        SIZE_LIMIT_BYTES: 102400
-        BRANCH: ${{ github.base_ref }}
+        SIZE_LIMIT_BYTES: 35840
+        BRANCH: ${{ github.ref }}
       run: |
         SAVEIFS=$IFS
         IFS=$(echo -en "\n\b")
         failure=0
-        for file in $(git diff-tree --no-commit-id --name-only -r "${BRANCH}..HEAD")
+        for file in $(git diff-tree --no-commit-id --name-only -r "$BRANCH")
         do
           size=$(stat --printf="%s" "${file}")
           if [[ "${size}" -gt "${SIZE_LIMIT_BYTES}" ]]; then
             echo "File \"${file}\" was ${size} bytes but must be less than or equal to ${SIZE_LIMIT_BYTES} bytes" >&2
             failure=1
           fi
+          echo "File size is ${size}"
         done
         IFS=$SAVEIFS
         if [[ "x${failure}" != "x0" ]]; then
