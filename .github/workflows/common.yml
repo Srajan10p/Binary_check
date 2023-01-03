@@ -29,10 +29,10 @@ jobs:
         fetch-depth: 0
     - name: Run check
       env:
-        BRANCH: ${{ github.base_ref }}
+        BRANCH: ${{ github.ref }}
       run: |
         set -ex
-        patches=$(git format-patch "${BRANCH}..HEAD")
+        patches=$(git format-patch "${BRANCH}")
         binaries_found=$(cat "${patches}" | grep 'GIT binary patch' | wc -l)
         if [[ "x${binaries_found}" != "x0" ]]; then
           echo "Please remove any binaries you added" >&2
