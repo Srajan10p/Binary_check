@@ -63,7 +63,7 @@ jobs:
         SAVEIFS=$IFS
         IFS=$(echo -en "\n\b")
         failure=0
-        for file in $(git diff-tree --no-commit-id --name-only -r "$BRANCH")
+        for file in $(git diff-tree --no-commit-id --name-only -r -- "$BRANCH")
         do
           size=$(stat --printf="%s" "${file}")
           if [[ "${size}" -gt "${SIZE_LIMIT_BYTES}" ]]; then
