@@ -18,7 +18,7 @@ jobs:
 #        username: ${{ github.actor }}
 #        password: ${{ secrets.github_token }}
     env:
-      BRANCH: ${{ github.base_ref }}
+      BRANCH: ${{ github.ref_name }}
     steps:
     - name: Install depedencies
       run: |
@@ -28,9 +28,11 @@ jobs:
       with:
         fetch-depth: 0
     - name: Run check
-      env:
-        BRANCH: ${{ github.ref }}
+#       env:
+#         BRANCH: ${{ github.ref_name }}
       run: |
+        BRANCH=$(git symbolic-ref HEAD)
+        echo $BRANCH
         set -ex
         patches=$(git format-patch "${BRANCH}")
         binaries_found=$(cat "${patches}" | grep 'GIT binary patch' | wc -l)
@@ -54,8 +56,10 @@ jobs:
     - name: Run check
       env:
         SIZE_LIMIT_BYTES: 35840
-        BRANCH: ${{ github.ref }}
+        BRANCH: ${{ github.head_ref }}
       run: |
+        #BRANCH = $(git symbolic-ref --short HEAD)
+        echo $BRANCH
         SAVEIFS=$IFS
         IFS=$(echo -en "\n\b")
         failure=0
