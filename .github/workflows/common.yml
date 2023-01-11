@@ -56,7 +56,7 @@ jobs:
     - name: Run check
       env:
         SIZE_LIMIT_BYTES: 35840
-        BRANCH: ${{ github.base_ref }}
+        BRANCH: ${{ github.ref_name }}
       run: |
         #BRANCH = $(git symbolic-ref --short HEAD)
         echo $BRANCH
