@@ -56,9 +56,12 @@ jobs:
     - name: Run check
       env:
         SIZE_LIMIT_BYTES: 35840
-        BRANCH: ${{ github.head_ref }}
+        BRANCH: ${{ github.ref }}
       run: |
         #BRANCH = $(git symbolic-ref --short HEAD)
+        echo $BRANCH
+        $BRANCH = ${Env:GITHUB_REF}.replace("refs/pull/","")
+        $BRANCH = $BRANCH.replace('/','_')
         echo $BRANCH
         SAVEIFS=$IFS
         IFS=$(echo -en "\n\b")
