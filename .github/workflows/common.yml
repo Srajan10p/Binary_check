@@ -60,8 +60,8 @@ jobs:
       run: |
         #BRANCH = $(git symbolic-ref --short HEAD)
         echo $BRANCH
-        #$BRANCH = ${Env:GITHUB_REF}.replace("refs/pull/","")
-        $BRANCH = $BRANCH.replace('/','_')
+        $BRANCH = ${Env:BRANCH}.replace("refs/pull/","")
+        $BRANCH = ${Env:BRANCH}.replace('/','_')
         echo $BRANCH
         SAVEIFS=$IFS
         IFS=$(echo -en "\n\b")
