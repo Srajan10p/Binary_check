@@ -61,7 +61,8 @@ jobs:
         #BRANCH = $(git symbolic-ref --short HEAD)
         echo $BRANCH
         #$BRANCH = $BRANCH.replace("refs/heads/","")
-        $BRANCH = $BRANCH.replace('/','_')
+        #$BRANCH = $BRANCH.replace('/','_')
+        echo "$BRANCH" | tr / _
         echo $BRANCH
         SAVEIFS=$IFS
         IFS=$(echo -en "\n\b")
