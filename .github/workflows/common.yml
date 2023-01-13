@@ -62,7 +62,8 @@ jobs:
         echo $BRANCH
         #$BRANCH = $BRANCH.replace("refs/heads/","")
         #$BRANCH = $BRANCH.replace('/','_')
-        BRANCH = "$BRANCH" | tr / _
+        #BRANCH = "$BRANCH" | tr / _
+        mod=${BRANCH//[/]/_}
         echo $BRANCH
         SAVEIFS=$IFS
         IFS=$(echo -en "\n\b")
