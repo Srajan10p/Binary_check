@@ -65,6 +65,7 @@ jobs:
         #BRANCH = "$BRANCH" | tr / _
         mod=${BRANCH//[/]/_}
         echo $BRANCH
+        echo $mod
         SAVEIFS=$IFS
         IFS=$(echo -en "\n\b")
         failure=0
