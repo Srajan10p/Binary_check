@@ -64,10 +64,10 @@ jobs:
         #$BRANCH.replace('/','_')
         #BRANCH = "$BRANCH" | tr / _
         mod=${BRANCH//[/]/_}
-        echo "${BRANCH//+([/])/_}"
-        mod2 = "${BRANCH//+([/])/_}"
         echo $BRANCH
         echo $mod
+        echo "${BRANCH//+([/])/_}"
+        mod2 = "${BRANCH//+([/])/_}"
         echo $mod2
         SAVEIFS=$IFS
         IFS=$(echo -en "\n\b")
