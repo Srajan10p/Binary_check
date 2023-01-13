@@ -62,7 +62,7 @@ jobs:
         echo $BRANCH
         #$BRANCH = $BRANCH.replace("refs/heads/","")
         #$BRANCH.replace('/','_')
-        echo "$BRANCH" | tr / _ >> $My_mod
+        echo "{"$BRANCH" | tr / _}" >> "${My_mod}"
         echo $My_mod
         mod=${BRANCH//[/]/_}
         echo $BRANCH
