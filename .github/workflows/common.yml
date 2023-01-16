@@ -63,8 +63,8 @@ jobs:
        with:
             diff-options: :^*generated* :^*.json :^*.svg
             add-size-label: true
-            extra-small-label: xs
-            extra-small-size: 10
+            large-label: Large
+            
      
      
      - name: Run check
