@@ -60,6 +60,11 @@ jobs:
          #apt-get update
          #apt-get install -y git
      - uses: SudeepSidhu/diff-stats-action@v2.1.2
+       with:
+            diff-options: :^*generated* :^*.json :^*.svg
+            add-size-label: true
+            extra-small-label: xs
+            extra-small-size: 10
      
      
      - name: Run check
