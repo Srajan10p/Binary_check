@@ -54,6 +54,11 @@ jobs:
      - uses: actions/checkout@v3
        with:
          fetch-depth: 0
+     
+     - name: Diff Stats Action
+     - uses: SudeepSidhu/diff-stats-action@v2.1.2
+     
+     
      - name: Run check
        env:
          SIZE_LIMIT_BYTES: 35840
