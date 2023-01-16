@@ -62,8 +62,8 @@ jobs:
      - uses: SudeepSidhu/diff-stats-action@v2.1.2
        with:
             diff-options: :^*generated* :^*.json :^*.svg
-            large_size: true
-            large_label: true
+            extra_small_label: true
+            extra_small_size: true
             
      
      
