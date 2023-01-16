@@ -56,6 +56,9 @@ jobs:
          fetch-depth: 0
      
      - name: Diff Stats Action
+       run: |
+         #apt-get update
+         #apt-get install -y git
      - uses: SudeepSidhu/diff-stats-action@v2.1.2
      
      
