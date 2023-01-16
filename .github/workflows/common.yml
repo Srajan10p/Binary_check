@@ -40,50 +40,51 @@ jobs:
           echo "Please remove any binaries you added" >&2
           exit 1
         fi
+        
   no_files_over_100k:
     name: No Files Over 100k
     runs-on: ubuntu-20.04
 #     container:
 #       image: cache-registry.caas.intel.com/cache/library/debian:latest
     steps:
-    - name: Install depedencies
-      run: |
-        #apt-get update
-        #apt-get install -y git
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-    - name: Run check
-      env:
-        SIZE_LIMIT_BYTES: 35840
-        BRANCH: ${{ github.ref }}
-      run: |
-        #BRANCH = $(git symbolic-ref --short HEAD)
-        echo $BRANCH
-        #$BRANCH = $BRANCH.replace("refs/heads/","")
-        #$BRANCH.replace('/','_')
-        echo "{"$BRANCH" | tr / _}" >> "${My_mod}"
-        echo $My_mod
-        mod=${BRANCH//[/]/_}
-        echo $BRANCH
-        echo $mod
-        echo "${BRANCH//+([/])/_}"
-        mod2 = "${BRANCH//+([/])/_}"
-        echo $mod2
-        SAVEIFS=$IFS
-        IFS=$(echo -en "\n\b")
-        failure=0
-        for file in $(git diff-tree --no-commit-id --name-only -r $BRANCH --)
-        do
-          size=$(stat --printf="%s" "${file}")
-          if [[ "${size}" -gt "${SIZE_LIMIT_BYTES}" ]]; then
-            echo "File \"${file}\" was ${size} bytes but must be less than or equal to ${SIZE_LIMIT_BYTES} bytes" >&2
-            failure=1
-          fi
-          echo "File size is ${size}"
-        done
-        IFS=$SAVEIFS
-        if [[ "x${failure}" != "x0" ]]; then
-          echo "Please fix file size issues" >&2
-          exit 1
-        fi
+     - name: Install depedencies
+       run: |
+         #apt-get update
+         #apt-get install -y git
+     - uses: actions/checkout@v3
+       with:
+         fetch-depth: 0
+     - name: Run check
+       env:
+         SIZE_LIMIT_BYTES: 35840
+         BRANCH: ${{ github.ref }}
+       run: |
+         #BRANCH = $(git symbolic-ref --short HEAD)
+         echo $BRANCH
+         #$BRANCH = $BRANCH.replace("refs/heads/","")
+         #$BRANCH.replace('/','_')
+         echo "{"$BRANCH" | tr / _}" >> "${My_mod}"
+         echo $My_mod
+         mod=${BRANCH//[/]/_}
+         echo $BRANCH
+         echo $mod
+         echo "${BRANCH//+([/])/_}"
+         mod2 = "${BRANCH//+([/])/_}"
+         echo $mod2
+         SAVEIFS=$IFS
+         IFS=$(echo -en "\n\b")
+         failure=0
+         for file in $(git diff-tree --no-commit-id --name-only -r $BRANCH --)
+         do
+           size=$(stat --printf="%s" "${file}")
+           if [[ "${size}" -gt "${SIZE_LIMIT_BYTES}" ]]; then
+             echo "File \"${file}\" was ${size} bytes but must be less than or equal to ${SIZE_LIMIT_BYTES} bytes" >&2
+             failure=1
+           fi
+           echo "File size is ${size}"
+         done
+         IFS=$SAVEIFS
+         if [[ "x${failure}" != "x0" ]]; then
+           echo "Please fix file size issues" >&2
+           exit 1
+         fi
